@@ -5,11 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.TypeConverter;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.component.ComponentsBuilderFactory;
 import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.mermer.camelkafka.constants.ServiceConstants;
+import org.mermer.camelkafka.model.Order;
+import org.mermer.camelkafka.model.OrderResponse;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -60,6 +63,17 @@ public class HelloProduceRunner implements CommandLineRunner {
 
 			producerTemplate.sendBodyAndHeaders(ServiceConstants.DIRECT_KAFKA_START_WITH_PARTITIONER, testKafkaMessage, newHeader);
 
+
+			Thread.sleep(1000L);
+
+			Order order = Order.builder()
+					.orderId("Order-Java-0001")
+					.itemId("MILK")
+					.quantity(10)
+					.build();
+			OrderResponse response = producerTemplate.requestBody(ServiceConstants.DIRECT_JAVA_START, order, OrderResponse.class);
+			log.info("---> Sending '{}' to 'direct:java'", order);
+			log.info("---> Response :'{}'", response );
 		}
 
 		log.info("Successfully published event to Kafka.");

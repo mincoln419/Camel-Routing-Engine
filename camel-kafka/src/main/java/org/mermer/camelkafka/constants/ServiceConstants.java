@@ -10,4 +10,7 @@ public class ServiceConstants {
 	public static final String DIRECT_KAFKA_START = "direct:kafkaStart";
 	public static final String DIRECT_KAFKA_START_WITH_PARTITIONER = "direct:kafkaStartWithPartitioner";
 	public static final String HEADER = "${headers}";
+	public static final String DIRECT_CSV_START = "direct:csv";
+
+	public static final String DIRECT_JAVA_START = "direct:java";
 }

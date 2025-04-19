@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.apache.camel:camel-stream:4.11.0'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.projectlombok:lombok:1.18.28'
+    implementation 'org.apache.camel:camel-bindy:4.11.0'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
 
 

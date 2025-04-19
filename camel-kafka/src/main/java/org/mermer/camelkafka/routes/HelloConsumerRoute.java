@@ -21,6 +21,11 @@ public class HelloConsumerRoute extends RouteBuilder {
 				+ "&groupId={{consumer.group}}"
 				+ "&autoOffsetReset={{consumer.offset.reset}}"
 		).routeId("FromKafka")
-				.log("consumer received messages " + " -  ${body} - ${id}");
+				.log("consumer received messages " + " -  ${body} - ${id}")
+				.to("direct:receivedMessage");
+
+		from("direct:receivedMessage")
+				.log("message received Complete");
+
 	}
 }
