@@ -25,9 +25,13 @@ dependencies {
     implementation 'org.apache.camel:camel-componentdsl:4.11.0'
     implementation 'org.apache.camel:camel-kafka:4.11.0'
     implementation 'org.apache.camel:camel-stream:4.11.0'
+    implementation 'org.apache.camel:camel-endpointdsl:4.11.0'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.projectlombok:lombok:1.18.28'
     implementation 'org.apache.camel:camel-bindy:4.11.0'
+    implementation 'io.hawt:hawtio-springboot:4.4.0'
+    implementation 'org.apache.camel.springboot:camel-management-starter:4.11.0'
+    implementation 'org.apache.camel.springboot:camel-spring-boot-xml-starter:4.11.0'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
 
 

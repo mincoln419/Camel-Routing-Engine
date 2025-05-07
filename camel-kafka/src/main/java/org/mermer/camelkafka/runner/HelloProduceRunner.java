@@ -2,10 +2,7 @@ package org.mermer.camelkafka.runner;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.TypeConverter;
+import org.apache.camel.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.component.ComponentsBuilderFactory;
 import org.apache.camel.component.kafka.KafkaConstants;
@@ -19,6 +16,8 @@ import org.springframework.stereotype.Component;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.apache.camel.builder.endpoint.StaticEndpointBuilders.kafka;
 
 @Component
 @Slf4j
@@ -35,73 +34,75 @@ public class HelloProduceRunner implements CommandLineRunner {
 
 
 		setUpKafkaComponent(camelContext);
-		camelContext.addRoutes(createRouteBuilder());
+//		camelContext.addRoutes(createRouteBuilder());
 
-		try(ProducerTemplate producerTemplate = camelContext.createProducerTemplate()){
+		try (ProducerTemplate producerTemplate = camelContext.createProducerTemplate()) {
 			producerTemplate.setDefaultEndpoint(camelContext.getEndpoint(ServiceConstants.DIRECT_KAFKA_START));
 			camelContext.start();
 
 			Map<String, Object> headers = new HashMap<>();
 			headers.put(KafkaConstants.PARTITION_KEY, 1);
 			headers.put(KafkaConstants.KEY, "1");
-			producerTemplate.sendBodyAndHeaders(ServiceConstants.DIRECT_KAFKA_START, testKafkaMessage, headers);
 
+			producerTemplate.sendBodyAndHeaders(ServiceConstants.DIRECT_KAFKA_START, testKafkaMessage, headers);
+//			producerTemplate
+//					.to(kafka("TestLog")
+//							.key("1")
+//							.partitionKey(1)
+//					)
+//					.withHeaders(headers)
+//					.withBody(testKafkaMessage)
+//					.send();
 
 			testKafkaMessage = "TOPIC " + testKafkaMessage;
 			headers.put(KafkaConstants.KEY, "2");
-			headers.put(KafkaConstants.TOPIC, "TestLog");
 
 			producerTemplate.sendBodyAndHeaders("direct:kafkaStartNoTopic", testKafkaMessage, headers);
+//			producerTemplate
+//					.to(kafka("TestLog")
+//							.key("1")
+//							.partitionKey(2))
+//					.withHeaders(headers)
+//					.withBody(testKafkaMessage)
+//					.send();
 
 			testKafkaMessage = "PART 0 : " + testKafkaMessage;
 			Map<String, Object> newHeader = new HashMap<>();
 			newHeader.put(KafkaConstants.KEY, "AB");
 
 			producerTemplate.sendBodyAndHeaders(ServiceConstants.DIRECT_KAFKA_START_WITH_PARTITIONER, testKafkaMessage, newHeader);
+//			producerTemplate
+//					.to(kafka("direct:kafkaStartNoTopic")
+//							.key("AB")
+//							.partitionKey(2))
+//					.withHeaders(newHeader)
+//					.withBody(testKafkaMessage)
+//					.send();
+
 			testKafkaMessage = "PART 1 : " + testKafkaMessage;
 			newHeader.put(KafkaConstants.KEY, "ABC");
 
 			producerTemplate.sendBodyAndHeaders(ServiceConstants.DIRECT_KAFKA_START_WITH_PARTITIONER, testKafkaMessage, newHeader);
-
+//			producerTemplate
+//					.to(kafka(ServiceConstants.DIRECT_KAFKA_START_WITH_PARTITIONER))
+//					.withHeaders(newHeader)
+//					.withBody(testKafkaMessage)
+//					.send();
 
 			Thread.sleep(1000L);
 
-			Order order = Order.builder()
-					.orderId("Order-Java-0001")
-					.itemId("MILK")
-					.quantity(10)
-					.build();
-			OrderResponse response = producerTemplate.requestBody(ServiceConstants.DIRECT_JAVA_START, order, OrderResponse.class);
-			log.info("---> Sending '{}' to 'direct:java'", order);
-			log.info("---> Response :'{}'", response );
+//			Order order = Order.builder()
+//					.orderId("Order-Java-0001")
+//					.itemId("MILK")
+//					.quantity(10)
+//					.build();
+//			OrderResponse response = producerTemplate.requestBody(ServiceConstants.DIRECT_JAVA_START, order, OrderResponse.class);
+//			log.info("---> Sending '{}' to 'direct:java'", order);
+//			log.info("---> Response :'{}'", response);
 		}
 
 		log.info("Successfully published event to Kafka.");
 
-	}
-
-	private RoutesBuilder createRouteBuilder() {
-		return new RouteBuilder() {
-
-			@Override
-			public void configure() throws Exception {
-				from(ServiceConstants.DIRECT_KAFKA_START).routeId("DirectToKafka")
-						.to("kafka:{{producer.topic}}").log(ServiceConstants.HEADER);
-
-				from("direct:kafkaStartNoTopic").routeId("kafkaStartNoTopic")
-						.to("kafka:dummy")
-						.log(ServiceConstants.HEADER);
-
-				from(ServiceConstants.DIRECT_KAFKA_START_WITH_PARTITIONER).routeId("kafkaStartWithPartitioner")
-						.to("kafka:{{producer.topic}}?partitioner={{producer.partitioner}}")
-						.log(ServiceConstants.HEADER);
-
-				from("stream:in").id("input").setHeader(KafkaConstants.PARTITION_KEY, simple("0"))
-						.setHeader(KafkaConstants.KEY, simple("1"))
-						.to(ServiceConstants.DIRECT_KAFKA_START)
-						.log(ServiceConstants.HEADER);
-			}
-		};
 	}
 
 	private void setUpKafkaComponent(CamelContext camelContext) {
