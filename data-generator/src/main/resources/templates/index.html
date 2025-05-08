@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API 전송 테스트</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h2>API 전송 테스트 폼</h2>
+    <div>
+      <label for="name">api 종류</label>
+      <div class="radiobox">
+        <input type="radio" id="byApi" name="color" />
+        <label for="red">API를 통해서 조회</label><br />
+
+        <input type="radio" id="byDBlink" name="color" />
+        <label for="blue">DB 링크를 통해서 조회</label><br />
+      </div>
+
+      <label for="sendPayload">전송 Payload</label>
+      <textarea id="sendPayload" name="sendPayload"></textarea><br /><br />
+
+      <label for="responseMessage">응답 Payload</label>
+      <textarea id="responseMessage" name="responseMessage" disabled></textarea
+      ><br /><br />
+
+      <button type="submit" onclick="sendAPI()">전송하기</button>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
