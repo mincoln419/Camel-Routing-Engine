@@ -17,7 +17,7 @@ import java.util.List;
 public class ItemService {
 
 	private final JpaItemRepository repository;
-	private final ItemNativeRepository nativeRepository;
+	private final ItemNativeRepository itemNativeRepository;
 
 	public List<Item> selectItems(SearchCond cond){
 
@@ -25,7 +25,7 @@ public class ItemService {
 	}
 
 	public List<Item> selectItemsByDblink(SearchCond cond){
-		return nativeRepository.selectByDblink(cond);
+		return itemNativeRepository.selectByDblink(cond);
 	}
 
 	public void collectItems() {

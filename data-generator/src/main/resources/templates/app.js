@@ -1,3 +1,0 @@
-
-
-const sendAPI = () => alert("click");

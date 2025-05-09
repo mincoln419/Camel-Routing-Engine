@@ -4,19 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>API 전송 테스트</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <h2>API 전송 테스트 폼</h2>
     <div>
       <label for="name">api 종류</label>
-      <div class="radiobox">
-        <input type="radio" id="byApi" name="color" />
-        <label for="red">API를 통해서 조회</label><br />
+      <div class="radioBox">
+        <input class="radio-option" type="radio" id="itemByApi" name="color" />
+        <label for="red">Item API를 통해서 조회</label><br />
 
-        <input type="radio" id="byDBlink" name="color" />
-        <label for="blue">DB 링크를 통해서 조회</label><br />
+        <input
+          class="radio-option"
+          type="radio"
+          id="itemByDBlink"
+          name="color"
+        />
+        <label for="blue">Item DB 링크를 통해서 조회</label><br />
+
+        <input
+          class="radio-option"
+          type="radio"
+          id="factoryByApi"
+          name="color"
+        />
+        <label for="blue">Factory API를 통해서 조회</label><br />
       </div>
+
+      <label for="url">url</label>
+      <input type="text" id="url" name="url" readonly />
 
       <label for="sendPayload">전송 Payload</label>
       <textarea id="sendPayload" name="sendPayload"></textarea><br /><br />
@@ -27,6 +43,6 @@
 
       <button type="submit" onclick="sendAPI()">전송하기</button>
     </div>
-    <script src="app.js"></script>
+    <script src="/app.js"></script>
   </body>
 </html>
