@@ -7,7 +7,8 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class ItemSearchCond {
+public class SearchCond {
 
-	private String location;
+	private int limit;
+	private int offset;
 }

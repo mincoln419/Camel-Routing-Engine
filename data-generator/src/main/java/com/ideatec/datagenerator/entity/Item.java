@@ -10,14 +10,15 @@ import lombok.Data;
 @Data
 public class Item {
 
-	@Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Id
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	private String wingNum;
 	private String location;
 	private String contractor;
 	private String engineer;
-	private String generation_joo;
+	private String generationJoo;
 	private String gage;
 	private String architect;
 	private String areaName;
