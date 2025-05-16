@@ -10,7 +10,9 @@ async function sendAPI() {
     const data = await response.json();
     console.log(data);
     const responseMessage = document.getElementById("responseMessage");
+    const responseCnt = document.getElementById("responseCnt");
     responseMessage.textContent = JSON.stringify(data, null, 4);
+    responseCnt.textContent = data.length;
   } catch (error) {
     console.error("Error fetching data:", error);
   }

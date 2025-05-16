@@ -22,6 +22,10 @@ public class ItemController {
 	@GetMapping
 	public ResponseEntity<List<Item>> selectItems(@QueryString SearchCond cond){
 
+		if(service.selectItems(cond).isEmpty()){
+			service.collectItems();
+		}
+
 		List<Item> items = service.selectItems(cond);
 
 		return ResponseEntity
@@ -33,7 +37,6 @@ public class ItemController {
 	public ResponseEntity<List<Item>> selectItemsByDblink(@QueryString SearchCond cond){
 
 		List<Item> items = service.selectItemsByDblink(cond);
-
 		return ResponseEntity
 				.status(200)
 				.body(items);

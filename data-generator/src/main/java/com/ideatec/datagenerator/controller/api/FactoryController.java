@@ -25,6 +25,9 @@ public class FactoryController {
 	@GetMapping
 	public ResponseEntity<List<Factory>> selectFactories(@QueryString SearchCond cond){
 
+		if(service.selectItems(cond).isEmpty()){
+			service.collectFactories();
+		}
 		List<Factory> factories = service.selectItems(cond);
 
 		return ResponseEntity
