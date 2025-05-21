@@ -1,4 +1,4 @@
-package com.mermer.webflux;
+package com.mermer.webflux.sequence;
 
 
 import ch.qos.logback.core.util.TimeUtil;
@@ -15,7 +15,8 @@ public class HotSequenceExample {
 
     public static void main(String[] args) {
         Flux<String> hotFlux = Flux.fromStream(Stream.of("Single A", "Single B", "Single C", "Single D", "Single E"))
-                .delayElements(Duration.ofMillis(1000L)).share()
+                .delayElements(Duration.ofMillis(1000L))
+                .share() //-> cold 시퀀스를 hot 시퀀스로 변경해주는 operator
                 ;
 
         hotFlux.subscribe(country -> log.info("# Subscriber1: {}", country));

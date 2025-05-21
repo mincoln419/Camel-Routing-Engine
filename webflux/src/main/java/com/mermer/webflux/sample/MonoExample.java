@@ -1,4 +1,4 @@
-package com.mermer.webflux;
+package com.mermer.webflux.sample;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.jayway.jsonpath.DocumentContext;

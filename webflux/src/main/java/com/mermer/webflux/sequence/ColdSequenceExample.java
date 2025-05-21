@@ -1,4 +1,4 @@
-package com.mermer.webflux;
+package com.mermer.webflux.sequence;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
