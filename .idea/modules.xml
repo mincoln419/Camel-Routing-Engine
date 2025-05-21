@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Camel-Routing-Engine.iml" filepath="$PROJECT_DIR$/.idea/Camel-Routing-Engine.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/camel-kafka.main.iml" filepath="$PROJECT_DIR$/.idea/modules/camel-kafka.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data-generator.main.iml" filepath="$PROJECT_DIR$/.idea/modules/data-generator.main.iml" />
     </modules>
   </component>
 </project>

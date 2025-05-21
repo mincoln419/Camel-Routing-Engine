@@ -3,7 +3,11 @@ package org.mermer.camelkafka.routes;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.kafka.KafkaConstants;
+import org.apache.camel.component.kafka.consumer.KafkaManualCommit;
 import org.springframework.stereotype.Component;
+
+import static org.apache.camel.builder.endpoint.StaticEndpointBuilders.kafka;
 
 @Component
 @RequiredArgsConstructor
@@ -13,6 +17,9 @@ public class HelloConsumerRoute extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
+
+
+
 
 		from("kafka:{{consumer.topic}}"
 				+ "?maxPollRecords={{consumer.maxPollRecords}}"
@@ -25,6 +32,7 @@ public class HelloConsumerRoute extends RouteBuilder {
 				.to("direct:receivedMessage");
 
 		from("direct:receivedMessage")
+				.process(e -> log.info(e.getIn().getHeaders().toString()))
 				.log("message received Complete");
 
 	}

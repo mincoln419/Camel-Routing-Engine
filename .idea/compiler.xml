@@ -10,5 +10,8 @@
         <module name="camel-kafka.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="data-generator.querydsl" target="21" />
+    </bytecodeTargetLevel>
   </component>
 </project>
