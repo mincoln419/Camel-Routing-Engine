@@ -22,7 +22,6 @@ public class MonoExample {
     public static void main(String[] args) {
         URI worldTimeUri = UriComponentsBuilder.newInstance().scheme("http")
                 .host("worldtimeapi.org")
-                .port(80)
                 .path("/api/timezone/Asia/Seoul")
                 .build()
                 .encode()
